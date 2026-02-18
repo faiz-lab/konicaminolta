@@ -6,8 +6,6 @@ app = Flask(__name__)
 
 DB_PATH = os.environ.get("DB_PATH", "recipes.db")
 
-init_db()
-
 def get_conn():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -47,6 +45,8 @@ def init_db():
     conn.commit()
     conn.close()
 
+if os.environ.get("WERKZEUG_RUN_MAIN") == "true" or os.environ.get("FLASK_RUN_FROM_CLI") == "true":
+    init_db()
 
 @app.route("/recipes", methods=["POST"])
 def create_recipe():
