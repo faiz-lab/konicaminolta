@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 DB_PATH = os.environ.get("DB_PATH", "recipes.db")
 
+init_db()
 
 def get_conn():
     conn = sqlite3.connect(DB_PATH)
@@ -45,11 +46,6 @@ def init_db():
 
     conn.commit()
     conn.close()
-
-
-@app.before_first_request
-def _boot():
-    init_db()
 
 
 @app.route("/recipes", methods=["POST"])
