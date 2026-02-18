@@ -45,8 +45,7 @@ def init_db():
     conn.commit()
     conn.close()
 
-if os.environ.get("WERKZEUG_RUN_MAIN") == "true" or os.environ.get("FLASK_RUN_FROM_CLI") == "true":
-    init_db()
+init_db()
 
 @app.route("/recipes", methods=["POST"])
 def create_recipe():
